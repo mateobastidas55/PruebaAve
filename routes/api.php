@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\api\CreateController;
 use App\Http\Controllers\api\DeleteController;
+use App\Http\Controllers\api\ListController;
 use App\Http\Controllers\api\ReadController;
 use App\Http\Controllers\api\UpdateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use PhpParser\Node\Expr\List_;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +25,11 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::post('/create', [CreateController::class, 'index']);
-Route::post('/delete', [DeleteController::class, 'index']);
+Route::post('/create', [CreateController::class, 'index'])->name('create');
+Route::post('/delete', [DeleteController::class, 'index'])->name('delete');
 Route::post('/read',   [ReadController::class, 'index']);
-Route::post('/update', [UpdateController::class, 'index']);
+Route::post('/update', [UpdateController::class, 'index'])->name('update');
+Route::get('/list', [ListController::class, 'index'])->name('list');
 
 // Route::post('/delete', [DeletePolicyLogistic::class, 'index']);
 

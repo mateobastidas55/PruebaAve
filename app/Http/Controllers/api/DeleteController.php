@@ -17,14 +17,18 @@ class DeleteController extends Controller
             ]);
 
             // Busca al usuario por su ID   
-            $usuario = UsuariosModel::findOrFail($request->all()['id']);
+            $usuario = UsuariosModel::find($request->get('id'));
+            if ($usuario == null) {
+                return response()->json(['message' => 'No se encontro el usuario'], 404);
+            }
+            $usuario->delete();
+
 
             // Elimina al usuario
-            $usuario->delete();
 
             return response()->json(['message' => 'Usuario eliminado con éxito'], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Error al eliminar usuario', 'details' => $e->getMessage()], 500);
+            return response()->json(['error' => 'Error al eliminar usuario', 'details' => $e->getMessage()], 400);
         }
     }
 }
